@@ -1,18 +1,30 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
+from django.views import generic as views
 
 from chronos.posts.forms import PostCommentForm
 from chronos.posts.models import Post, PostComment
 
 
-def show_posts(request):
-    posts = Post.objects.all()
+# def show_posts(request):
+#     posts = Post.objects.all()
+#
+#     context = {
+#         'posts': posts,
+#     }
+#
+#     return render(request, 'posts/posts_all.html', context)
 
-    context = {
-        'posts': posts,
-    }
 
-    return render(request, 'posts/posts_all.html', context)
+class PostListView(views.ListView):
+    def get(self, request, *args, **kwargs):
+        posts = Post.objects.all()
+
+        context = {
+            'posts': posts,
+        }
+
+        return render(request, 'posts/posts_all.html', context)
 
 
 def show_post(request, pk):
@@ -38,3 +50,4 @@ def show_post(request, pk):
         'comment_count': comment_count,
     }
     return render(request, 'posts/post_details.html', context)
+
