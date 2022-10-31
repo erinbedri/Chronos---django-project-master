@@ -1,0 +1,23 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="row d-flex justify-content-center" style="margin-top: 30px">
+        <div class="col-sm-10">
+            <h2 style="margin-bottom: 30px">Chronos - the watch collector's platform...</h2>
+            <p>Not every watch has to come fresh from the factory. In fact, many people fall for the charm of watches
+                with designs from the 60s or 70s. These vintage watches include coveted collector's items and hidden
+                treasures waiting to be uncovered by watch fans.</p>
+            <div class="text-center" style="margin-top: 30px; margin-bottom: 30px">
+                <img src="{% static 'img/longines_vintage.jpg' %}" class="img-fluid" size="200x200px">
+            </div>
+            <p>Searching for the right vintage watch is part of the overall collecting experience and often turns
+                novices into watch aficionados.</p>
+            <p>On <b>Chronos</b> you can share your collection with other watch enthusiasts, read watch related
+                articles, discuss and interact with other like-minded.
+            <p><a href="{% url 'accounts:register_account' %}">Register now</a> and start your watch collecting journey.</p></p>
+        </div>
+    </div>
+
+{% endblock %}
