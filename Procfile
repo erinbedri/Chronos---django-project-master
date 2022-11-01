@@ -1,1 +1,1 @@
-web: gunicorn Chronos---django-project-master chronos/chronos.wsgi
+web: gunicorn --pythonpath chronos chronos.wsgi
