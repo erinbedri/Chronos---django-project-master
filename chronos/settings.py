@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+import cloudinary
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -30,6 +32,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     'ckeditor',
+    'cloudinary',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -140,3 +143,9 @@ LOGIN_URL = 'chronos.accounts.login_profile'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
+
+cloudinary.config(
+  cloud_name = "hh48yupzf",
+  api_key = "842289725147197",
+  api_secret = "3tDaDVxzOqi5Wbs65slwZMTabGg"
+)

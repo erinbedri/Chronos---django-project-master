@@ -7,6 +7,8 @@ from django.db.models import CASCADE
 
 from chronos.watches.validators import file_size
 
+from cloudinary.models import CloudinaryField
+
 
 class Watch(models.Model):
     BRAND_MAX_LEN = 30
@@ -91,7 +93,7 @@ class Watch(models.Model):
         max_length=DESCRIPTION_MAX_LEN,
     )
 
-    image = models.ImageField(
+    image = CloudinaryField(
         null=True,
         blank=True,
         upload_to='watches',
