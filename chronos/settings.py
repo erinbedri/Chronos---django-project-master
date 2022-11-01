@@ -72,13 +72,24 @@ WSGI_APPLICATION = 'chronos.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'db_chronos',
+#         'USER': 'postgres',
+#         'PASSWORD': '930502erin',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db_chronos',
-        'USER': 'postgres',
-        'PASSWORD': '930502erin',
-        'HOST': '127.0.0.1',
+        'NAME': 'd1ckquhfekvacd',
+        'USER': 'pmdcsttiindazf',
+        'PASSWORD': 'a71d2d998b7c13a26ce0d71bca46a2bb3c9fa23fe3eeae68fb7c027beaf9b9ed',
+        'HOST': 'ec2-54-228-32-29.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
 }
