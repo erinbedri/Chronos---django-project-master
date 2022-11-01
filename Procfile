@@ -1,2 +1,2 @@
 web: gunicorn --pythonpath chronos chronos.wsgi
-python manage.py collectstatic --noinput;
+release: python demo_app/manage.py migrate
