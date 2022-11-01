@@ -96,7 +96,7 @@ class Watch(models.Model):
     image = CloudinaryField(
         null=True,
         blank=True,
-        upload_to='watches',
+        # upload_to='watches',
         validators=(
             file_size,
         )
