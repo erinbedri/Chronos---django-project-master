@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-x+uemw-oi==-r&4!#jmigxe4s!5tpvt8-q*%lmhe9s)5$@!=x4'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -140,7 +140,3 @@ LOGIN_URL = 'chronos.accounts.login_profile'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
-
-
-print(BASE_DIR)
-print(BASE_DIR_2)
