@@ -2,16 +2,17 @@ import os
 from pathlib import Path
 import cloudinary
 
+from chronos.web.utils import is_production
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-SECRET_KEY = 'django-insecure-x+uemw-oi==-r&4!#jmigxe4s!5tpvt8-q*%lmhe9s)5$@!=x4'
+APP_ENVIRONMENT = os.getenv('APP_ENVIRONMENT', 'Development')
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'chronos-watches.herokuapp.com'
-]
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -70,49 +71,46 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'chronos.wsgi.application'
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'db_chronos',
-#         'USER': 'postgres',
-#         'PASSWORD': '930502erin',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd1ckquhfekvacd',
-        'USER': 'pmdcsttiindazf',
-        'PASSWORD': 'a71d2d998b7c13a26ce0d71bca46a2bb3c9fa23fe3eeae68fb7c027beaf9b9ed',
-        'HOST': 'ec2-54-228-32-29.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
+DATABASES = None
+if APP_ENVIRONMENT == is_production():
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_POST', '5432'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'db_chronos',
+            'USER': 'postgres',
+            'PASSWORD': '123QWE',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+AUTH_PASSWORD_VALIDATORS = []
+if APP_ENVIRONMENT == is_production():
+    AUTH_PASSWORD_VALIDATORS = [
+        {
+            'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        },
+    ]
 
 LANGUAGE_CODE = 'en-us'
 
@@ -122,13 +120,11 @@ USE_I18N = True
 
 USE_TZ = True
 
-BASE_DIR_2 = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR_2, 'static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -142,8 +138,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
 
-cloudinary.config(
-  cloud_name = "hh48yupzf",
-  api_key = "842289725147197",
-  api_secret = "3tDaDVxzOqi5Wbs65slwZMTabGg"
-)
+if APP_ENVIRONMENT == is_production():
+    cloudinary.config(
+        cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+        api_key=os.getenv('CLOUDINARY_API_KEY'),
+        api_secret=os.getenv('CLOUDINARY_API_SECRET')
+    )

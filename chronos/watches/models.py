@@ -5,9 +5,12 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import CASCADE
 
+from chronos import settings
 from chronos.watches.validators import file_size
 
 from cloudinary.models import CloudinaryField
+
+from chronos.web.utils import is_production
 
 
 class Watch(models.Model):
@@ -93,14 +96,23 @@ class Watch(models.Model):
         max_length=DESCRIPTION_MAX_LEN,
     )
 
-    image = CloudinaryField(
-        null=True,
-        blank=True,
-        # upload_to='watches',
-        validators=(
-            file_size,
+    if settings.APP_ENVIRONMENT == is_production():
+        image = CloudinaryField(
+            null=True,
+            blank=True,
+            validators=(
+                file_size,
+            )
         )
-    )
+    else:
+        image = models.ImageField(
+            null=True,
+            blank=True,
+            upload_to='watches',
+            validators=(
+                file_size,
+            )
+        )
 
     likes = models.ManyToManyField(
         User,
