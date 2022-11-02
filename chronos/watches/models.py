@@ -104,19 +104,18 @@ class Watch(models.Model):
         )
     )
 
+    likes = models.ManyToManyField(
+        User,
+        related_name='watch_likes'
+    )
 
-likes = models.ManyToManyField(
-    User,
-    related_name='watch_likes'
-)
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
 
-created_at = models.DateTimeField(
-    auto_now_add=True
-)
-
-updated_at = models.DateTimeField(
-    auto_now=True
-)
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
 
 
 class Meta:
