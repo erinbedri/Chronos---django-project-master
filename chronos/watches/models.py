@@ -96,45 +96,39 @@ class Watch(models.Model):
         max_length=DESCRIPTION_MAX_LEN,
     )
 
-    if settings.APP_ENVIRONMENT == is_production():
-        image = CloudinaryField(
-            null=True,
-            blank=True,
-            validators=(
-                file_size,
-            )
+    image = CloudinaryField(
+        null=True,
+        blank=True,
+        validators=(
+            file_size,
         )
-    else:
-        image = models.ImageField(
-            null=True,
-            blank=True,
-            upload_to='watches',
-            validators=(
-                file_size,
-            )
-        )
-
-    likes = models.ManyToManyField(
-        User,
-        related_name='watch_likes'
     )
 
-    created_at = models.DateTimeField(
-        auto_now_add=True
-    )
 
-    updated_at = models.DateTimeField(
-        auto_now=True
-    )
+likes = models.ManyToManyField(
+    User,
+    related_name='watch_likes'
+)
 
-    class Meta:
-        verbose_name_plural = "watches"
+created_at = models.DateTimeField(
+    auto_now_add=True
+)
 
-    def like_count(self):
-        return self.likes.count()
+updated_at = models.DateTimeField(
+    auto_now=True
+)
 
-    def __str__(self):
-        return f'{self.brand} {self.model}'
+
+class Meta:
+    verbose_name_plural = "watches"
+
+
+def like_count(self):
+    return self.likes.count()
+
+
+def __str__(self):
+    return f'{self.brand} {self.model}'
 
 
 class WatchComment(models.Model):
