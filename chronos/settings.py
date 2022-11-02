@@ -8,7 +8,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-APP_ENVIRONMENT = os.getenv('APP_ENVIRONMENT', 'Development')
+APP_ENVIRONMENT = os.getenv('APP_ENVIRONMENT')
+print(APP_ENVIRONMENT)
+
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
