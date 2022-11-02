@@ -117,17 +117,14 @@ class Watch(models.Model):
         auto_now=True
     )
 
+    class Meta:
+        verbose_name_plural = "watches"
 
-class Meta:
-    verbose_name_plural = "watches"
+    def like_count(self):
+        return self.likes.count()
 
-
-def like_count(self):
-    return self.likes.count()
-
-
-def __str__(self):
-    return f'{self.brand} {self.model}'
+    def __str__(self):
+        return f'{self.brand} {self.model}'
 
 
 class WatchComment(models.Model):
