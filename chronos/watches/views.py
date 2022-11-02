@@ -157,9 +157,9 @@ def delete_watch(request, pk):
     if request.method == 'POST':
         form = DeleteWatchForm(request.POST, request.FILES, instance=watch)
         if form.is_valid():
-            if watch.image:
-                image_path = watch.image.path
-                os.remove(image_path)
+            # if watch.image:
+            #     image_path = watch.image.path
+            #     os.remove(image_path)
             watch.delete()
             messages.success(request, WATCH_DELETE_SUCCESS_MESSAGE)
             return redirect('watches:show_all_watches')
