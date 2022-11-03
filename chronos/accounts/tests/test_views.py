@@ -19,7 +19,6 @@ class ShowAccountTests(django_test.TestCase):
         'brand': 'Test Brand',
         'model': 'Test Model',
         'style': 'Pocket',
-        'price_paid': 1000,
     }
 
     @staticmethod
@@ -40,7 +39,7 @@ class ShowAccountTests(django_test.TestCase):
         response = self.client.get(reverse('accounts:show_account'))
         self.assertEqual(response.context['watch_count'], 0)
 
-    def test_show_account__when_user_logged_in_and_has_watch_expect_watch_count_to_be_1(self):
+    def test_show_account__when_user_logged_in_and_has_watch_expect_watch_count_to_be_correct(self):
         user = self._create_user(**self.VALID_USER_CREDENTIALS)
         self.client.login(**self.VALID_USER_CREDENTIALS)
 
@@ -59,13 +58,14 @@ class ShowAccountTests(django_test.TestCase):
         response = self.client.get(reverse('accounts:show_account'))
         self.assertEqual(response.context['total_paid'], 0)
 
-    def test_show_account__when_user_logged_in_and_has_watch_expect_expect_total_paid_to_be_1000(self):
+    def test_show_account__when_user_logged_in_and_has_watch_expect_expect_total_paid_to_be_correct(self):
         user = self._create_user(**self.VALID_USER_CREDENTIALS)
         self.client.login(**self.VALID_USER_CREDENTIALS)
 
         watch = Watch.objects.create(
             **self.VALID_WATCH_DATA,
             owner=user,
+            price_paid=1000,
         )
 
         response = self.client.get(reverse('accounts:show_account'))

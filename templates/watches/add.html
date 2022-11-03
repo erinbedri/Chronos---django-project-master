@@ -22,12 +22,22 @@
 
                     <div class="row" style="margin-top: 30px">
                         <div class="col">
-                            <label class="mb-1">Brand*</label>
-                            {{ form.brand }}
+                            {% if form.brand.errors %}
+                                <label class="mb-1 alert-danger">Brand*</label>
+                                {{ form.brand }}
+                            {% else %}
+                                <label class="mb-1">Brand*</label>
+                                {{ form.brand }}
+                            {% endif %}
                         </div>
                         <div class="col">
-                            <label class="mb-1">Model*</label>
-                            {{ form.model }}
+                            {% if form.model.errors %}
+                                <label class="mb-1 alert-danger">Model*</label>
+                                {{ form.model }}
+                            {% else %}
+                                <label class="mb-1">Model*</label>
+                                {{ form.model }}
+                            {% endif %}
                         </div>
                     </div>
                     <div class="row" style="margin-top: 30px">
@@ -74,8 +84,13 @@
                     </div>
                     <div class="row" style="margin-top: 30px">
                         <div class="col">
-                            <label class="mb-1">Image</label>
-                            {{ form.image }}
+                            {% if form.image.errors %}
+                                <label class="mb-1 alert-danger">Image</label>
+                                {{ form.image }}
+                            {% else %}
+                                <label class="mb-1">Image</label>
+                                {{ form.image }}
+                            {% endif %}
                         </div>
                     </div>
                     <button type="submit" class="btn btn-warning" style="margin-top: 30px">Add</button>

@@ -8,14 +8,36 @@
                 <form method="POST" action="{% url 'watches:edit_watch' watch.id %}" enctype="multipart/form-data">
                     {% csrf_token %}
 
+                    {% if form.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <div id="form_errors">
+                                {% for key, value in form.errors.items %}
+                                    <strong>{{ value }}</strong>
+                                {% endfor %}
+                            </div>
+                            <strong>{{ message|striptags }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+
                     <div class="row" style="margin-top: 30px">
                         <div class="col">
-                            <label class="mb-1">Brand*</label>
-                            {{ form.brand }}
+                            {% if form.brand.errors %}
+                                <label class="mb-1 alert-danger">Brand*</label>
+                                {{ form.brand }}
+                            {% else %}
+                                <label class="mb-1">Brand*</label>
+                                {{ form.brand }}
+                            {% endif %}
                         </div>
                         <div class="col">
-                            <label class="mb-1">Model*</label>
-                            {{ form.model }}
+                            {% if form.model.errors %}
+                                <label class="mb-1 alert-danger">Model*</label>
+                                {{ form.model }}
+                            {% else %}
+                                <label class="mb-1">Model*</label>
+                                {{ form.model }}
+                            {% endif %}
                         </div>
                     </div>
                     <div class="row" style="margin-top: 30px">
@@ -52,8 +74,15 @@
                     </div>
                     <div class="row" style="margin-top: 30px">
                         <div class="col">
-                            <label class="mb-1">Image</label>
-                            {{ form.image }}
+                            {% if form.image.errors %}
+                                <label class="mb-1 alert-danger">Image</label>
+                                {{ form.image }}
+                                <p style="margin-top: 10px">Current: {{ form.instance.image.url }}</p>
+                            {% else %}
+                                <label class="mb-1">Image</label>
+                                {{ form.image }}
+                                <p style="margin-top: 10px">Current: {{ form.instance.image.url }}</p>
+                            {% endif %}
                         </div>
                     </div>
                     <button type="submit" class="btn btn-warning" style="margin-top: 30px">Edit</button>
