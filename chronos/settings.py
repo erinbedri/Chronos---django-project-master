@@ -130,6 +130,7 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
 #     api_key=os.getenv('CLOUDINARY_API_KEY'),
 #     api_secret=os.getenv('CLOUDINARY_API_SECRET'),
 # )
+
 cloudinary.config(
   cloud_name = "hh48yupzf",
   api_key = "842289725147197",
