@@ -99,6 +99,7 @@ class Watch(models.Model):
     image = CloudinaryField(
         null=True,
         blank=True,
+        use_filename=True,
         validators=(
             file_size,
         )
