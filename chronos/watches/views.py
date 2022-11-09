@@ -34,8 +34,8 @@ def show_all_watches(request):
             Q(owner__username=q)) \
         .order_by('-created_at')
 
-    brands = {watch.brand for watch in Watch.objects.all()}
-    styles = {watch.style for watch in Watch.objects.all()}
+    brands = sorted({watch.brand for watch in Watch.objects.all()})
+    styles = sorted({watch.style for watch in Watch.objects.all()})
 
     paginator = Paginator(watches_list, WATCHES_PER_PAGE)
 
