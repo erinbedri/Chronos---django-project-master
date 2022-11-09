@@ -11,7 +11,8 @@
                         <img src="{{ watch.image.url }}" class="figure-img img-fluid"
                              style="object-fit: cover; height: 500px" alt="{{ watch.brand }}">
                     {% else %}
-                        <img src="/media/watch/default_watch.png" class="figure-img img-fluid"
+                        <img src="{% get_media_prefix %}default_watch.jpg"
+                             class="figure-img img-fluid"
                              style="object-fit: cover; height: 500px" alt="{{ watch.brand }}">
                     {% endif %}
                 </figure>
